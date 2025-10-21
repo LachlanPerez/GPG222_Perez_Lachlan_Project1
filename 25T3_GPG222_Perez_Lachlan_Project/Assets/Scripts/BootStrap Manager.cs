@@ -1,4 +1,5 @@
 using Unity.Netcode;
+using Unity.Netcode.Transports.UTP;
 using UnityEngine;
 
 public class BootStrapManager : MonoBehaviour
@@ -8,6 +9,16 @@ public class BootStrapManager : MonoBehaviour
 
     [SerializeField]
     private float buttonHeight = 40f;
+
+    public UnityTransport transport;
+
+    string ipAddress = "127.0.0.1";
+
+    public void NewIPAddress(string ipAddress)
+    {
+        Debug.Log("New IP Address: " +  ipAddress);
+        transport.SetConnectionData(ipAddress, port: 7777);
+    }
 
     private void OnGUI()
     {
@@ -26,6 +37,7 @@ public class BootStrapManager : MonoBehaviour
                 networkManager.StartHost();
             }
 
+            ipAddress = GUILayout.TextField(ipAddress, maxLength: 15);
             if (GUILayout.Button("Client", myButtonStyle))
             {
                 networkManager.StartClient();
