@@ -22,6 +22,9 @@ public class BootStrapManager : MonoBehaviour
 
     private void OnGUI()
     {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+
         GUILayout.BeginArea(new Rect(10, 10, 100, 400));
 
         var networkManager = NetworkManager.Singleton;
