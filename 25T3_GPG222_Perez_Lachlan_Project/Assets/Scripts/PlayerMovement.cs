@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using Unity.Netcode;
 
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovement : NetworkBehaviour
 {
     [SerializeField] private float MoveSmoothTime;// Makes the movement more smooth
     [SerializeField] private float GravityStrength;// it will dictate the strength of gravity applied to the player
@@ -18,11 +18,21 @@ public class PlayerMovement : MonoBehaviour
 
     private Vector3 CurrentForceVelocity;// this will be the application of gravity onto the player of object 
 
+    public Transform PlayerCamera; // Reference to the player's camera
+    public Vector2 sensitivities;  // X = horizontal sensitivity, Y = vertical sensitivity
+    public float SmoothSpeed = 5f;
+
+    private Vector2 SmoothRotation;
+    private Vector2 XYRotation;    // Stores current X and Y rotation
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         Controller = GetComponent<CharacterController>();
+        // Lock the cursor to the center and hide it
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     // Update is called once per frame
@@ -61,5 +71,20 @@ public class PlayerMovement : MonoBehaviour
             CurrentForceVelocity.y -= GravityStrength * Time.deltaTime;//if the raycast isnt colliding with anything it will subtract the gravity multiplied by delta time so that the players falling velocity will gradually increase
         }
         Controller.Move(CurrentForceVelocity * Time.deltaTime);//uses the current move force velocity variable multiplied by delta time
+
+        // Get mouse input
+        float mouseX = Input.GetAxis("Mouse X");
+        float mouseY = Input.GetAxis("Mouse Y");
+
+        // Apply sensitivity and invert Y-axis for looking up/down
+        XYRotation.x -= mouseY * sensitivities.y;
+        XYRotation.y += mouseX * sensitivities.x;
+
+        // Clamp vertical rotation to avoid flipping
+        XYRotation.x = Mathf.Clamp(XYRotation.x, -90f, 90f);
+
+        SmoothRotation = Vector2.Lerp(SmoothRotation, XYRotation, SmoothSpeed * Time.deltaTime);
+        transform.eulerAngles = new Vector3(0f, SmoothRotation.y, 0f);
+        PlayerCamera.localEulerAngles = new Vector3(SmoothRotation.x, 0f, 0f);
     }
 }

@@ -293,11 +293,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: de7a7c23beea20f46ad684554ca646f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
   MoveSmoothTime: 0.1
   GravityStrength: 9.81
   JumpStrength: 6
   WalkSpeed: 4
   RunSpeed: 8
+  PlayerCamera: {fileID: 6770763655047062941}
+  sensitivities: {x: 2.5, y: 2.5}
+  SmoothSpeed: 5
 --- !u!114 &4861737892717388049
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -305,11 +309,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4887974203002859667}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0f81425c0e692a644923ff5a744ed2ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ShowTopMostFoldoutHeaderGroup: 1
   PlayerCamera: {fileID: 6770763655047062941}
   sensitivities: {x: 2.5, y: 2.5}
   SmoothSpeed: 5

@@ -323,7 +323,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_PresetAsset: {fileID: 0}
   m_PresetReference:
-    rid: 1121655170990604605
+    rid: 1121655170990604609
   m_Scenario:
     rid: -2
   m_IsScenarioSettingsFolded: 0
@@ -333,7 +333,7 @@ MonoBehaviour:
     RefIds:
     - rid: -2
       type: {class: , ns: , asm: }
-    - rid: 1121655170990604605
+    - rid: 1121655170990604609
       type: {class: NetworkSimulatorPreset, ns: Unity.Multiplayer.Tools.NetworkSimulator.Runtime, asm: Unity.Multiplayer.Tools.NetworkSimulator.Runtime}
       data:
         <Name>k__BackingField: None
@@ -390,7 +390,6 @@ MonoBehaviour:
     PlayerPrefab: {fileID: 4887974203002859667, guid: 30b9b8293658d044f86f5144df4d93cb, type: 3}
     Prefabs:
       NetworkPrefabsLists:
-      - {fileID: 11400000, guid: 5ee87645f62c60f4d9893a35360038a8, type: 2}
       - {fileID: 11400000, guid: 5ee87645f62c60f4d9893a35360038a8, type: 2}
     TickRate: 30
     ClientConnectionBufferTimeout: 10
@@ -680,7 +679,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 3ceaa250819e67145afc46b5f1c40da1, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -849,10 +848,10 @@ SceneRoots:
   m_Roots:
   - {fileID: 410087041}
   - {fileID: 832575519}
+  - {fileID: 860273204}
   - {fileID: 386732869796145501}
   - {fileID: 1922057506}
   - {fileID: 8108687748938438153}
-  - {fileID: 860273204}
   - {fileID: 1920897877}
   - {fileID: 1704297391}
   - {fileID: 1063121866}
