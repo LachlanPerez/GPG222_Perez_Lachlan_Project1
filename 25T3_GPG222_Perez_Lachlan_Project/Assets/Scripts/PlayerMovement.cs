@@ -29,14 +29,35 @@ public class PlayerMovement : NetworkBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        Controller = GetComponent<CharacterController>();
-        // Lock the cursor to the center and hide it
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+        if (IsOwner)
+        {
+            Controller = GetComponent<CharacterController>();
+            // Lock the cursor to the center and hide it
+            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.visible = false;
+            GetComponent<Renderer>().material.color = Color.red;
+        }
+        else
+        {
+            if(PlayerCamera != null)
+            {
+                PlayerCamera.gameObject.SetActive(false);
+            }
+        }
+        
     }
 
     // Update is called once per frame
     void Update()
+    {
+        if (!IsOwner) return;
+        {
+            HandleMovement();
+            HandleCamera();
+        }
+    }
+
+    private void HandleMovement()
     {
         Vector3 PlayerInput = new Vector3
         {
@@ -57,7 +78,7 @@ public class PlayerMovement : NetworkBehaviour
         Controller.Move(CurrentMoveVelocity * Time.deltaTime);// moves the player through move velocity and multiples by time to delta time 
 
         Ray groundCheckRay = new Ray(transform.position, Vector3.down);// checking ray cast that shoots down for 1.25
-        if(Physics.Raycast(groundCheckRay, 1.1f))// If the player is on the floor or  
+        if (Physics.Raycast(groundCheckRay, 1.1f))// If the player is on the floor or  
         {
             CurrentForceVelocity.y = -2f;// detects a collision will be applied to keep the player on the floor when navigating.
 
@@ -71,7 +92,10 @@ public class PlayerMovement : NetworkBehaviour
             CurrentForceVelocity.y -= GravityStrength * Time.deltaTime;//if the raycast isnt colliding with anything it will subtract the gravity multiplied by delta time so that the players falling velocity will gradually increase
         }
         Controller.Move(CurrentForceVelocity * Time.deltaTime);//uses the current move force velocity variable multiplied by delta time
+    }
 
+    private void HandleCamera()
+    {
         // Get mouse input
         float mouseX = Input.GetAxis("Mouse X");
         float mouseY = Input.GetAxis("Mouse Y");
