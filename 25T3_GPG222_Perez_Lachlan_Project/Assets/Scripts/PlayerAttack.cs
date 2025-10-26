@@ -1,45 +1,40 @@
 using System.Collections;
 using Unity.Netcode;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class PlayerAttack : NetworkBehaviour
 {
-    [SerializeField] public GameObject Sword;
-    public bool CanAttack = true;
-    public float AttackCooldown = 1;
-    public bool IsAttacking = false;
+    [SerializeField] private float weaponHitRadius;
+    [SerializeField] private Transform weaponHitPoint;
+    [SerializeField] private int damage = 2;
+    [SerializeField] private LayerMask targetLayer;
+    [SerializeField] private GameObject hitEffect;
+    [SerializeField] private Animator animator;
 
     // Update is called once per frame
     void Update()
     {
         if (Input.GetMouseButtonDown(0))
         {
-            if(CanAttack)
-            {
-                SwordAttack();
-            }
+            animator.SetTrigger("attack");
         }
     }
 
-    public void SwordAttack()
+    public void DetectHit()
     {
-        IsAttacking = true;
-        CanAttack = false;
-        Animator anim = Sword.GetComponent<Animator>();
-        anim.SetTrigger("Attack");
-        StartCoroutine(ResetAttackCoolDown());
+        Collider[] hit = Physics.OverlapSphere(weaponHitPoint.position, weaponHitRadius, targetLayer);
+
+        if(hit.Length > 0)
+        {
+            hit[0].GetComponent<Health>().TakeDamage(damage);
+            Instantiate(hitEffect.transform, hit[0].transform.position + new Vector3(0f, 1f, 0f), Quaternion.identity);
+        }
     }
 
-    IEnumerator ResetAttackCoolDown()
+    private void OnDrawGizmos()
     {
-        StartCoroutine(ResetAttackBool());
-        yield return new WaitForSeconds(AttackCooldown);
-        CanAttack = true;
-    }
-
-    private IEnumerator ResetAttackBool()
-    {
-        yield return new WaitForSeconds(1.0f);
-        IsAttacking = false;
+        Gizmos.color = Color.red;
+        Gizmos.DrawSphere(weaponHitPoint.position, weaponHitRadius);
     }
 }
