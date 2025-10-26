@@ -4,6 +4,7 @@ using UnityEngine;
 public class Health : MonoBehaviour
 {
     [SerializeField] private int health;
+    [SerializeField] private int attack;
 
     public void TakeDamage(int damage)
     {
@@ -12,6 +13,15 @@ public class Health : MonoBehaviour
         if(health <= 0)
         {
             Destroy(this.gameObject);
+        }
+    }
+
+    public void DealDamage(GameObject target)
+    {
+        var atm = target.GetComponent<Health>();
+        if(atm != null)
+        {
+            atm.TakeDamage(attack);
         }
     }
 }
