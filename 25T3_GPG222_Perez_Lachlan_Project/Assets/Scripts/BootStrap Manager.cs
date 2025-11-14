@@ -12,7 +12,10 @@ public class BootStrapManager : MonoBehaviour
 
     public UnityTransport transport;
 
+    public RelayNetworkManager relayNetworkManager;
+
     string ipAddress = "127.0.0.1";
+    private string relayJoinCode = "Write Code";
 
     public void NewIPAddress(string ipAddress)
     {
@@ -49,6 +52,23 @@ public class BootStrapManager : MonoBehaviour
             if (GUILayout.Button("Server", myButtonStyle))
             {
                 networkManager.StartServer();
+            }
+
+
+
+
+            GUILayout.Space(pixels: 50);
+
+            if(GUILayout.Button(text:"Start with Relay", myButtonStyle))
+            {
+                relayNetworkManager.StartHostWithRelay(maxConnections: 8, connectionType:"udp");
+            }
+
+            GUILayout.Space(pixels: 50);
+            relayJoinCode =GUILayout.TextField(relayJoinCode, maxLength: 15);
+            if(GUILayout.Button(text:"Client", myButtonStyle))
+            {
+                relayNetworkManager.StartClientWithRelay(relayJoinCode, connectionType:"udp");
             }
         }
 
