@@ -31,7 +31,7 @@ public class BootStrapManager : MonoBehaviour
         if (!networkManager.IsClient && !networkManager.IsServer)
         {
             GUIStyle myButtonStyle = new GUIStyle(GUI.skin.button);
-            myButtonStyle.fontSize = 20;
+            myButtonStyle.fontSize = 16;
             myButtonStyle.fixedWidth = buttonWidth;
             myButtonStyle.fixedHeight = buttonHeight;
 
@@ -50,20 +50,22 @@ public class BootStrapManager : MonoBehaviour
             {
                 networkManager.StartServer();
             }
+            
+            
+            
+            
+            GUILayout.Space(50);
 
-
-
-
-            GUILayout.Space(pixels: 50);
-
-            if(GUILayout.Button(text:"Start with Relay", myButtonStyle))
+            if(GUILayout.Button("Start with Relay", myButtonStyle))
             {
-                relayNetworkManager.StartHostWithRelay(maxConnections: 8, connectionType: "udp");
+               relayNetworkManager.StartHostWithRelay(8, "udp");
             }
 
-            GUILayout.Space(pixels: 50);
-            relayJoinCode =GUILayout.TextField(relayJoinCode, maxLength: 15);
-            if(GUILayout.Button(text:"Client", myButtonStyle))
+            GUILayout.Space(20);
+            
+            relayJoinCode = GUILayout.TextField(relayJoinCode, maxLength: 15);
+            
+            if(GUILayout.Button("Client", myButtonStyle))
             {
                 relayNetworkManager.StartClientWithRelay(relayJoinCode, connectionType: "udp");
             }

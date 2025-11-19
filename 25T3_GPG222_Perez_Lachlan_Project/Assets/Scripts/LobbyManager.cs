@@ -10,14 +10,14 @@ using UnityEngine;
 
 public class LobbyManager : MonoBehaviour
 {
-    string lobbyName = "SwordsAwesomeLobby";
-    int maxPlayers = 4;
+    public string lobbyName = "SwordsAwesomeLobby";
+    public int maxPlayers = 4;
     CreateLobbyOptions options = new CreateLobbyOptions();
     public InitializeScript initialization;
     public UIButtonScript relayButton;
-    
+
     public RelayNetworkManager relayNetworkManager;
-    
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -25,6 +25,7 @@ public class LobbyManager : MonoBehaviour
         initialization.Init();
         SignUpAnonymouslyAsync();
         CreateLobby();
+        CreateLobbyWithHeartbeatAsync();
         Debug.Log("Lobby created");
     }
 
@@ -48,9 +49,12 @@ public class LobbyManager : MonoBehaviour
 
         Lobby lobby = await LobbyService.Instance.CreateLobbyAsync(lobbyName, maxPlayers, options);
     }
-    
+
     async Task<Lobby> CreateLobbyWithHeartbeatAsync()
     {
+        string lobbyName = "SwordsAwesomeLobby";
+        int maxPlayers = 4;
+        CreateLobbyOptions options = new CreateLobbyOptions();
         // Lobby parameters code goes here...
         // See 'Creating a Lobby' for example parameters
         var lobby = await LobbyService.Instance.CreateLobbyAsync(lobbyName, maxPlayers, options);
@@ -70,7 +74,7 @@ public class LobbyManager : MonoBehaviour
             yield return delay;
         }
     }
-    
+
     async Task SignUpAnonymouslyAsync()
     {
         try
@@ -80,7 +84,6 @@ public class LobbyManager : MonoBehaviour
 
             // Shows how to get the playerID
             Debug.Log($"PlayerID: {AuthenticationService.Instance.PlayerId}");
-
         }
         catch (AuthenticationException ex)
         {
@@ -94,6 +97,7 @@ public class LobbyManager : MonoBehaviour
             // Notify the player with the proper error message
             Debug.LogException(ex);
         }
+
         try
         {
             // Quick-join a random lobby with a maximum capacity of 10 or more players.
@@ -117,4 +121,3 @@ public class LobbyManager : MonoBehaviour
         }
     }
 }
-

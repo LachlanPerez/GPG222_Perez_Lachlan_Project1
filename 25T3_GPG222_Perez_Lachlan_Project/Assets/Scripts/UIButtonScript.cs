@@ -1,3 +1,4 @@
+using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -19,7 +20,8 @@ public class UIButtonScript : MonoBehaviour
 
     private void OnClicked()
     {
-        relayNetworkManager.StartHostWithRelay(maxConnections: 8, connectionType: "udp");
+        Task<string> startHostWithRelay = relayNetworkManager.StartHostWithRelay(maxConnections: 8, connectionType: "udp");
+        Debug.Log(startHostWithRelay.Result);
     }
 
     public void JoinCode(string _code)
