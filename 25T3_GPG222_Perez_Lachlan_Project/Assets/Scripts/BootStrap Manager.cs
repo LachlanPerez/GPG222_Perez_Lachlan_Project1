@@ -25,9 +25,6 @@ public class BootStrapManager : MonoBehaviour
 
     private void OnGUI()
     {
-        //Cursor.lockState = CursorLockMode.None;
-        //Cursor.visible = true;
-
         GUILayout.BeginArea(new Rect(10, 10, 100, 400));
 
         var networkManager = NetworkManager.Singleton;
@@ -61,14 +58,14 @@ public class BootStrapManager : MonoBehaviour
 
             if(GUILayout.Button(text:"Start with Relay", myButtonStyle))
             {
-                relayNetworkManager.StartHostWithRelay(maxConnections: 8, connectionType:"udp");
+                relayNetworkManager.StartHostWithRelay(maxConnections: 8, connectionType: "udp");
             }
 
             GUILayout.Space(pixels: 50);
             relayJoinCode =GUILayout.TextField(relayJoinCode, maxLength: 15);
             if(GUILayout.Button(text:"Client", myButtonStyle))
             {
-                relayNetworkManager.StartClientWithRelay(relayJoinCode, connectionType:"udp");
+                relayNetworkManager.StartClientWithRelay(relayJoinCode, connectionType: "udp");
             }
         }
 
