@@ -1,6 +1,7 @@
 using Unity.Netcode;
 using Unity.Netcode.Transports.UTP;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BootStrapManager : MonoBehaviour
 {
@@ -68,6 +69,20 @@ public class BootStrapManager : MonoBehaviour
             if(GUILayout.Button("Client", myButtonStyle))
             {
                 relayNetworkManager.StartClientWithRelay(relayJoinCode, connectionType: "udp");
+            }
+            
+            
+            
+            GUILayout.Space(50);
+            if (GUILayout.Button("Create Lobby", myButtonStyle))
+            {
+                //LobbyManager.CreateLobby()
+            }
+            
+            GUILayout.Space(20);
+            if (GUILayout.Button("Join Lobby", myButtonStyle))
+            {
+                
             }
         }
 

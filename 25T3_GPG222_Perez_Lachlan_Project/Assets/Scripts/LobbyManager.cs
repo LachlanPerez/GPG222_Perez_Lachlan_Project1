@@ -20,22 +20,21 @@ public class LobbyManager : MonoBehaviour
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    async void Start()
     {
-        initialization.Init();
-        SignUpAnonymouslyAsync();
-        CreateLobby();
-        CreateLobbyWithHeartbeatAsync();
+        await initialization.Init();
+        await SignUpAnonymouslyAsync();
+        await CreateLobby();
         Debug.Log("Lobby created");
     }
 
     private void Update()
     {
-        throw new NotImplementedException();
+        
     }
 
     // Update is called once per frame
-    async void CreateLobby()
+    async Task CreateLobby()
     {
         options.Data = new Dictionary<string, DataObject>()
         {

@@ -5,6 +5,9 @@ using UnityEngine.UI;
 public class UIButtonScript : MonoBehaviour
 {
     public Button hostWithRelay;
+    public Button clientWithRelay;
+    public Button createLobbyWithRelay;
+    public Button joinLobbyWithoutRelay;
     public RelayNetworkManager relayNetworkManager;
     private string code;
 
@@ -22,7 +25,7 @@ public class UIButtonScript : MonoBehaviour
     {
         Task<string> startHostWithRelay = relayNetworkManager.StartHostWithRelay(maxConnections: 8, connectionType: "udp");
         Debug.Log(startHostWithRelay.Result);
-    }
+    } 
 
     public void JoinCode(string _code)
     {
