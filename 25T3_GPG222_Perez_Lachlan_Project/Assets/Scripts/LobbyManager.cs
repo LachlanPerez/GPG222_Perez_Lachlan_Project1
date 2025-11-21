@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -34,7 +33,7 @@ public class LobbyManager : MonoBehaviour
     }
 
     // Update is called once per frame
-    async Task CreateLobby()
+    public async Task CreateLobby()
     {
         options.Data = new Dictionary<string, DataObject>()
         {
@@ -49,12 +48,8 @@ public class LobbyManager : MonoBehaviour
         Lobby lobby = await LobbyService.Instance.CreateLobbyAsync(lobbyName, maxPlayers, options);
     }
 
-    async Task<Lobby> CreateLobbyWithHeartbeatAsync()
+    public async Task<Lobby> CreateLobbyWithHeartbeatAsync()
     {
-        string lobbyName = "SwordsAwesomeLobby";
-        int maxPlayers = 4;
-        CreateLobbyOptions options = new CreateLobbyOptions();
-        // Lobby parameters code goes here...
         // See 'Creating a Lobby' for example parameters
         var lobby = await LobbyService.Instance.CreateLobbyAsync(lobbyName, maxPlayers, options);
 
@@ -74,7 +69,7 @@ public class LobbyManager : MonoBehaviour
         }
     }
 
-    async Task SignUpAnonymouslyAsync()
+    public async Task SignUpAnonymouslyAsync()
     {
         try
         {

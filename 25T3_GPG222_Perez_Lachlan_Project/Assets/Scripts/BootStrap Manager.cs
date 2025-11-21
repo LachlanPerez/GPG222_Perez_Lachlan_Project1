@@ -14,6 +14,8 @@ public class BootStrapManager : MonoBehaviour
     public UnityTransport transport;
 
     public RelayNetworkManager relayNetworkManager;
+    
+    public LobbyManager lobbyManager;
 
     string ipAddress = "127.0.0.1";
     private string relayJoinCode = "Write Code";
@@ -55,14 +57,14 @@ public class BootStrapManager : MonoBehaviour
             
             
             
-            GUILayout.Space(50);
+           
 
             if(GUILayout.Button("Start with Relay", myButtonStyle))
             {
                relayNetworkManager.StartHostWithRelay(8, "udp");
             }
 
-            GUILayout.Space(20);
+            
             
             relayJoinCode = GUILayout.TextField(relayJoinCode, maxLength: 15);
             
@@ -73,17 +75,23 @@ public class BootStrapManager : MonoBehaviour
             
             
             
-            GUILayout.Space(50);
+            
             if (GUILayout.Button("Create Lobby", myButtonStyle))
             {
-                //LobbyManager.CreateLobby()
+                lobbyManager.CreateLobby();
             }
             
-            GUILayout.Space(20);
+            
             if (GUILayout.Button("Join Lobby", myButtonStyle))
             {
-                
+                lobbyManager.SignUpAnonymouslyAsync();
             }
+            
+            //GUILayout.Space(20);
+            //if (GUILayout.Button("Join Lobby", myButtonStyle))
+            //{
+                
+            //}
         }
 
         GUILayout.EndArea();
