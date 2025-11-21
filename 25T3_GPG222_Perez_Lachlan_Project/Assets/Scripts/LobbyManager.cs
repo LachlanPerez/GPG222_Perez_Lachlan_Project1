@@ -13,7 +13,6 @@ public class LobbyManager : MonoBehaviour
     public int maxPlayers = 4;
     CreateLobbyOptions options = new CreateLobbyOptions();
     public InitializeScript initialization;
-    public UIButtonScript relayButton;
 
     public RelayNetworkManager relayNetworkManager;
 

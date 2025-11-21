@@ -5,9 +5,9 @@ using UnityEngine.UI;
 public class UIButtonScript : MonoBehaviour
 {
     public Button hostWithRelay;
-    public Button clientWithRelay;
-    public Button createLobbyWithRelay;
-    public Button joinLobbyWithoutRelay;
+    //public Button clientWithRelay;
+    //public Button createLobbyWithRelay;
+    //public Button joinLobbyWithoutRelay;
     public RelayNetworkManager relayNetworkManager;
     private string code;
 
