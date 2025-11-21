@@ -29,9 +29,8 @@ public class RelayNetworkManager : MonoBehaviour
             return null;
         }
     }
-
-
-    public async Task<bool> StartClientWithRelay(string Swords, string connectionType)
+    
+    public async Task<bool> StartClientWithRelay(string joinCode, string connectionType)
     {
         await UnityServices.InitializeAsync();
         if (!AuthenticationService.Instance.IsSignedIn)
@@ -39,16 +38,13 @@ public class RelayNetworkManager : MonoBehaviour
             await AuthenticationService.Instance.SignInAnonymouslyAsync();
         }
 
-
-        JoinAllocation allocation = await RelayService.Instance.JoinAllocationAsync(Swords);
+        JoinAllocation allocation = await RelayService.Instance.JoinAllocationAsync(joinCode: joinCode);
         NetworkManager.Singleton.GetComponent<UnityTransport>().SetRelayServerData(AllocationUtils.ToRelayServerData(allocation, connectionType));
-        if (string.IsNullOrEmpty(Swords))
+        if (string.IsNullOrEmpty(joinCode))
         {
             return false;
         }
-
-        Debug.Log("Client started : Join code = " + Swords);
-
+        
         return NetworkManager.Singleton.StartClient();
     }
 }

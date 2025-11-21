@@ -26,26 +26,21 @@ public class LobbyManager : MonoBehaviour
         Debug.Log("Lobby created");
     }
 
-    private void Update()
-    {
-        
-    }
-
     // Update is called once per frame
     public async Task CreateLobby()
     {
         options.Data = new Dictionary<string, DataObject>()
         {
             {
-                "ServerRelay", new DataObject(
+                "RelayCode", new DataObject(
                     visibility: DataObject.VisibilityOptions.Public, // Visible publicly.
-                    value: "ServerRelay",
-                    index: DataObject.IndexOptions.S1)
+                    value: "RelayCode")
             },
         };
 
         Lobby lobby = await LobbyService.Instance.CreateLobbyAsync(lobbyName, maxPlayers, options);
     }
+
 
     public async Task<Lobby> CreateLobbyWithHeartbeatAsync()
     {
@@ -90,6 +85,7 @@ public class LobbyManager : MonoBehaviour
             // Notify the player with the proper error message
             Debug.LogException(ex);
         }
+
 
         try
         {

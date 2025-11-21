@@ -24,7 +24,7 @@ public class BootStrapManager : MonoBehaviour
         transport.SetConnectionData(ipAddress, port: 7777);
     }
 
-    private void OnGUI()
+    private async void OnGUI()
     {
         GUILayout.BeginArea(new Rect(10, 10, 100, 400));
 
@@ -56,7 +56,7 @@ public class BootStrapManager : MonoBehaviour
             
             if(GUILayout.Button("Start with Relay", myButtonStyle))
             {
-               relayNetworkManager.StartHostWithRelay(8, "udp");
+               await relayNetworkManager.StartHostWithRelay(8, "udp");
             }
 
             
@@ -65,7 +65,7 @@ public class BootStrapManager : MonoBehaviour
             
             if(GUILayout.Button("Client", myButtonStyle))
             {
-                relayNetworkManager.StartClientWithRelay(relayJoinCode, connectionType: "udp");
+                await relayNetworkManager.StartClientWithRelay(relayJoinCode, connectionType: "udp");
             }
         }
 
