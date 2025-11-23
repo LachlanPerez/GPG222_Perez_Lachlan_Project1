@@ -5,14 +5,21 @@ using Unity.Services.Authentication;
 using Unity.Services.Core;
 using Unity.Services.Lobbies;
 using Unity.Services.Lobbies.Models;
+using TMPro;
 using UnityEngine;
 
 public class LobbyManager : MonoBehaviour
 {
+  /*
     public string lobbyName = "SwordsAwesomeLobby";
     public int maxPlayers = 4;
     CreateLobbyOptions options = new CreateLobbyOptions();
     public InitializeScript initialization;
+    [SerializeField] private GameObject lobbyCreationParent;
+    [SerializeField] private TMP_InputField createLobbyNameField;
+    [SerializeField] private TMP_Dropdown createLobbyGameModeDropdown;
+    [SerializeField] private TMP_InputField createLobbyMaxPlayersField;
+    [SerializeField] private TMP_InputField createLobbyPasswordField;
 
     public RelayNetworkManager relayNetworkManager;
 
@@ -85,28 +92,43 @@ public class LobbyManager : MonoBehaviour
             // Notify the player with the proper error message
             Debug.LogException(ex);
         }
+    }
 
-
-        try
+    public async Task JoinLobby(string lobbyId)
+    {
+        if (needPassword)
         {
-            // Quick-join a random lobby with a maximum capacity of 10 or more players.
-            QuickJoinLobbyOptions options = new QuickJoinLobbyOptions();
-
-            options.Filter = new List<QueryFilter>()
+            try
             {
-                new QueryFilter(
-                    field: QueryFilter.FieldOptions.MaxPlayers,
-                    op: QueryFilter.OpOptions.GE,
-                    value: "10")
-            };
+                await LobbyService.Instance.JoinLobbyByIdAsync(lobbyID, new JoinLobbyByIdOptions
+                    { Password = await InputPassword(), Player = playerData });
 
-            var lobby = await LobbyService.Instance.QuickJoinLobbyAsync(options);
-
-            // ...
+                joinedLobbyId = lobbyID;
+                lobbyListParent.SetActive(false);
+                joinedLobbyParent.SetActive(true);
+                UpdateLobbyInfo();
+            }
+            catch (LobbyServiceException e)
+            {
+                Debug.Log(e);
+            }
         }
-        catch (LobbyServiceException e)
+        else
         {
-            Debug.Log(e);
+            try
+            {
+                await LobbyService.Instance.JoinLobbyByIdAsync(lobbyID, new JoinLobbyByIdOptions { Player = playerData });
+                lobbyListParent.SetActive(false);
+                joinedLobbyParent.SetActive(true);
+
+                joinedLobbyId = lobbyID;
+                UpdateLobbyInfo();
+            }
+            catch (LobbyServiceException e)
+            {
+                Debug.Log(e);
+            }
         }
     }
+*/
 }
